@@ -1,0 +1,362 @@
+{
+    "openapi": "3.1.2",
+    "info": {
+        "title": "Boss Store",
+        "version": "0.0.1"
+    },
+    "servers": [
+        {
+            "url": "http://localhost:8000/api/v1"
+        }
+    ],
+    "paths": {
+        "/auth/login": {
+            "post": {
+                "operationId": "auth.login",
+                "tags": [
+                    "AuthenticatedSession"
+                ],
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/LoginRequest"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "`UserResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/UserResource"
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                }
+            }
+        },
+        "/auth/logout": {
+            "post": {
+                "operationId": "auth.logout",
+                "tags": [
+                    "AuthenticatedSession"
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No content"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        },
+        "/branding": {
+            "get": {
+                "operationId": "branding.show",
+                "tags": [
+                    "Branding"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "`BrandingResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/BrandingResource"
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/auth/me": {
+            "get": {
+                "operationId": "auth.me",
+                "tags": [
+                    "CurrentUser"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "`UserResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/UserResource"
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/AuthenticationException"
+                    }
+                }
+            }
+        }
+    },
+    "components": {
+        "schemas": {
+            "BrandingResource": {
+                "type": "object",
+                "properties": {
+                    "store_name": {
+                        "type": "string"
+                    },
+                    "whatsapp": {
+                        "type": [
+                            "string",
+                            "null"
+                        ]
+                    },
+                    "locale": {
+                        "type": "string"
+                    },
+                    "currency": {
+                        "type": "string"
+                    },
+                    "logos": {
+                        "type": "object",
+                        "properties": {
+                            "on_dark": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "on_light": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "on_dark",
+                            "on_light"
+                        ]
+                    },
+                    "colors": {
+                        "type": "object",
+                        "properties": {
+                            "background": {
+                                "type": "string"
+                            },
+                            "surface": {
+                                "type": "string"
+                            },
+                            "foreground": {
+                                "type": "string"
+                            },
+                            "muted": {
+                                "type": "string"
+                            },
+                            "signal": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "background",
+                            "surface",
+                            "foreground",
+                            "muted",
+                            "signal"
+                        ]
+                    },
+                    "fonts": {
+                        "type": "object",
+                        "properties": {
+                            "heading": {
+                                "type": "object",
+                                "properties": {
+                                    "family": {
+                                        "type": "string"
+                                    },
+                                    "stylesheet_url": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "family",
+                                    "stylesheet_url"
+                                ]
+                            },
+                            "body": {
+                                "type": "object",
+                                "properties": {
+                                    "family": {
+                                        "type": "string"
+                                    },
+                                    "stylesheet_url": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "family",
+                                    "stylesheet_url"
+                                ]
+                            },
+                            "mono": {
+                                "type": "object",
+                                "properties": {
+                                    "family": {
+                                        "type": "string"
+                                    },
+                                    "stylesheet_url": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "family",
+                                    "stylesheet_url"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "heading",
+                            "body",
+                            "mono"
+                        ]
+                    },
+                    "radius": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "store_name",
+                    "whatsapp",
+                    "locale",
+                    "currency",
+                    "logos",
+                    "colors",
+                    "fonts",
+                    "radius"
+                ],
+                "title": "BrandingResource"
+            },
+            "LoginRequest": {
+                "type": "object",
+                "properties": {
+                    "email": {
+                        "type": "string",
+                        "format": "email"
+                    },
+                    "password": {
+                        "type": "string"
+                    },
+                    "remember": {
+                        "type": "boolean"
+                    }
+                },
+                "required": [
+                    "email",
+                    "password"
+                ],
+                "title": "LoginRequest"
+            },
+            "UserResource": {
+                "type": "object",
+                "properties": {
+                    "id": {
+                        "type": "integer"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "email": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "id",
+                    "name",
+                    "email"
+                ],
+                "title": "UserResource"
+            }
+        },
+        "responses": {
+            "ValidationException": {
+                "description": "Validation error",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "description": "Errors overview."
+                                },
+                                "errors": {
+                                    "type": "object",
+                                    "description": "A detailed description of each field that failed validation.",
+                                    "additionalProperties": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "string"
+                                        }
+                                    }
+                                }
+                            },
+                            "required": [
+                                "message",
+                                "errors"
+                            ]
+                        }
+                    }
+                }
+            },
+            "AuthenticationException": {
+                "description": "Unauthenticated",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "description": "Error overview."
+                                }
+                            },
+                            "required": [
+                                "message"
+                            ]
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

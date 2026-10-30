@@ -10,6 +10,9 @@ use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Support\Facades\Storage;
 
+/**
+ * @mixin BrandingSettings
+ */
 final class BrandingResource extends JsonResource
 {
     public function __construct(private readonly BrandingSettings $settings)
@@ -44,7 +47,9 @@ final class BrandingResource extends JsonResource
             'locale' => $this->settings->locale,
             'currency' => $this->settings->currency,
             'logos' => [
+                /** @var string|null */
                 'on_dark' => $this->logoUrl($this->settings->logo_on_dark_path),
+                /** @var string|null */
                 'on_light' => $this->logoUrl($this->settings->logo_on_light_path),
             ],
             'colors' => [
