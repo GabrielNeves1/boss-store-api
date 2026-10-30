@@ -116,4 +116,18 @@ return [
 
     'password_timeout' => env('AUTH_PASSWORD_TIMEOUT', 10800),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Login Rate Limit
+    |--------------------------------------------------------------------------
+    |
+    | Maximum number of login attempts per minute for the same e-mail and IP
+    | before the API starts answering with 429 Too Many Requests.
+    |
+    */
+
+    'login' => [
+        'max_attempts_per_minute' => (int) env('AUTH_LOGIN_MAX_ATTEMPTS_PER_MINUTE', 5),
+    ],
+
 ];
