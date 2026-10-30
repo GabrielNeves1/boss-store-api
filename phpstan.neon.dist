@@ -11,3 +11,4 @@ parameters:
         - config
         - database
         - routes
+        - tests/Fixtures
