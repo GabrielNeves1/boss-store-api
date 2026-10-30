@@ -29,6 +29,15 @@ Esta API é a fonte de verdade dos dados de negócio e do contrato dos dois fron
   `Config::string()`).
 - **Se algo exigir valor fixo, pare e pergunte onde esse valor deve morar.**
 
+## Nada pago
+- Nenhuma biblioteca, pacote, licença, fonte, ferramenta ou serviço pago. Só open source ou
+  gratuito. Isso inclui recursos "pro" ou pagos de pacotes gratuitos.
+- Se algo necessário só existir em versão paga, pare e pergunte antes de buscar qualquer
+  alternativa.
+- Exceção: serviços de operação da loja (provedor de API de nota fiscal, hospedagem, domínio e
+  certificado digital) são custos da loja, decididos pelo usuário. Ao chegar neles, apresente
+  as opções.
+
 ## Arquitetura
 - Rotas sob o prefixo **`/api/v1`**.
 - **Controllers finos:** recebem o Form Request, chamam uma Action e devolvem Resource ou Data.
@@ -36,8 +45,9 @@ Esta API é a fonte de verdade dos dados de negócio e do contrato dos dois fron
 - **Actions** (`app/Actions`): uma classe por caso de uso, com um único método público. Toda a
   lógica fica aqui.
 - **Validação:** Form Requests, sempre. Nunca `$request->validate()` no controller.
-- **Saída:** API Resources ou spatie/laravel-data (`app/Data`). Use o formato que o Scramble
-  documenta corretamente e confira o `openapi.json` gerado.
+- **Saída:** API Resources. spatie/laravel-data (`app/Data`) entra na saída só se o Scramble
+  documentá-lo na versão gratuita; se esse suporte for pago, a saída é sempre por Resources.
+  Confira o `openapi.json` gerado.
 - **Tipagem estrita:** `declare(strict_types=1);` em todo arquivo PHP, tipos em parâmetros,
   retornos e propriedades. Prefira classes `final` e propriedades `readonly`.
 - **Autenticação do painel:** Sanctum SPA por cookie. Domínios stateful, origens CORS,
