@@ -18,6 +18,7 @@ services:
             IGNITION_LOCAL_SITES_PATH: '${PWD}'
         volumes:
             - '.:/var/www/html'
+            - '${SEED_ASSETS_HOST_PATH:-./storage/app/seed-assets}:/var/www/seed-assets:ro'
         networks:
             - sail
         depends_on:
