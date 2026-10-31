@@ -58,7 +58,7 @@ return [
         'body' => ['family' => 'Epilogue', 'stylesheet' => 'epilogue/epilogue.css'],
     ],
 
-    'radius' => '0px',
+    'radius' => '20px',
 
     /*
     | Cache lifetime (in seconds) sent with every font file.
