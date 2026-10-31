@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Http\Resources;
 
+use App\Data\Branding\BrandColorsData;
 use App\Data\Branding\FontData;
 use App\Settings\BrandingSettings;
 use Illuminate\Http\Request;
@@ -21,26 +22,10 @@ final class BrandingResource extends JsonResource
     }
 
     /**
-     * @return array{
-     *     store_name: string,
-     *     whatsapp: string|null,
-     *     locale: string,
-     *     currency: string,
-     *     logos: array{on_dark: string|null, on_light: string|null},
-     *     colors: array{background: string, surface: string, foreground: string, muted: string, signal: string},
-     *     fonts: array{
-     *         heading: array{family: string, stylesheet_url: string},
-     *         body: array{family: string, stylesheet_url: string},
-     *         mono: array{family: string, stylesheet_url: string},
-     *     },
-     *     radius: string,
-     * }
+     * @return array<string, mixed>
      */
     public function toArray(Request $request): array
     {
-        $colors = $this->settings->colors;
-        $fonts = $this->settings->fonts;
-
         return [
             'store_name' => $this->settings->store_name,
             'whatsapp' => $this->settings->whatsapp,
@@ -48,29 +33,48 @@ final class BrandingResource extends JsonResource
             'currency' => $this->settings->currency,
             'logos' => [
                 /** @var string|null */
-                'on_dark' => $this->logoUrl($this->settings->logo_on_dark_path),
+                'on_dark' => $this->publicUrl($this->settings->logo_on_dark_path),
                 /** @var string|null */
-                'on_light' => $this->logoUrl($this->settings->logo_on_light_path),
+                'on_light' => $this->publicUrl($this->settings->logo_on_light_path),
             ],
             'colors' => [
-                'background' => $colors->background,
-                'surface' => $colors->surface,
-                'foreground' => $colors->foreground,
-                'muted' => $colors->muted,
-                'signal' => $colors->signal,
+                'dark' => $this->palette($this->settings->colors_dark),
+                'light' => $this->palette($this->settings->colors_light),
             ],
             'fonts' => [
-                'heading' => $this->font($fonts->heading),
-                'body' => $this->font($fonts->body),
-                'mono' => $this->font($fonts->mono),
+                'heading' => $this->font($this->settings->fonts->heading),
+                'body' => $this->font($this->settings->fonts->body),
             ],
             'radius' => $this->settings->radius,
+            'opening' => [
+                /** @var string|null */
+                'video_webm' => $this->publicUrl($this->settings->opening_video_webm_path),
+                /** @var string|null */
+                'video_mp4' => $this->publicUrl($this->settings->opening_video_mp4_path),
+                /** @var string|null */
+                'poster' => $this->publicUrl($this->settings->opening_poster_path),
+            ],
         ];
     }
 
-    private function logoUrl(?string $path): ?string
+    private function publicUrl(?string $path): ?string
     {
         return $path === null ? null : Storage::disk('public')->url($path);
+    }
+
+    /**
+     * @return array{background: string, surface: string, foreground: string, muted: string, accent: string, accent_foreground: string}
+     */
+    private function palette(BrandColorsData $colors): array
+    {
+        return [
+            'background' => $colors->background,
+            'surface' => $colors->surface,
+            'foreground' => $colors->foreground,
+            'muted' => $colors->muted,
+            'accent' => $colors->accent,
+            'accent_foreground' => $colors->accent_foreground,
+        ];
     }
 
     /**

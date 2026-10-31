@@ -11,6 +11,5 @@ final class BrandFontsData extends Data
     public function __construct(
         public readonly FontData $heading,
         public readonly FontData $body,
-        public readonly FontData $mono,
     ) {}
 }

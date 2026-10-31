@@ -13,6 +13,7 @@ final class BrandColorsData extends Data
         public readonly string $surface,
         public readonly string $foreground,
         public readonly string $muted,
-        public readonly string $signal,
+        public readonly string $accent,
+        public readonly string $accent_foreground,
     ) {}
 }

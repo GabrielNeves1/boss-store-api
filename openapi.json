@@ -560,28 +560,72 @@
                     "colors": {
                         "type": "object",
                         "properties": {
-                            "background": {
-                                "type": "string"
+                            "dark": {
+                                "type": "object",
+                                "properties": {
+                                    "background": {
+                                        "type": "string"
+                                    },
+                                    "surface": {
+                                        "type": "string"
+                                    },
+                                    "foreground": {
+                                        "type": "string"
+                                    },
+                                    "muted": {
+                                        "type": "string"
+                                    },
+                                    "accent": {
+                                        "type": "string"
+                                    },
+                                    "accent_foreground": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "background",
+                                    "surface",
+                                    "foreground",
+                                    "muted",
+                                    "accent",
+                                    "accent_foreground"
+                                ]
                             },
-                            "surface": {
-                                "type": "string"
-                            },
-                            "foreground": {
-                                "type": "string"
-                            },
-                            "muted": {
-                                "type": "string"
-                            },
-                            "signal": {
-                                "type": "string"
+                            "light": {
+                                "type": "object",
+                                "properties": {
+                                    "background": {
+                                        "type": "string"
+                                    },
+                                    "surface": {
+                                        "type": "string"
+                                    },
+                                    "foreground": {
+                                        "type": "string"
+                                    },
+                                    "muted": {
+                                        "type": "string"
+                                    },
+                                    "accent": {
+                                        "type": "string"
+                                    },
+                                    "accent_foreground": {
+                                        "type": "string"
+                                    }
+                                },
+                                "required": [
+                                    "background",
+                                    "surface",
+                                    "foreground",
+                                    "muted",
+                                    "accent",
+                                    "accent_foreground"
+                                ]
                             }
                         },
                         "required": [
-                            "background",
-                            "surface",
-                            "foreground",
-                            "muted",
-                            "signal"
+                            "dark",
+                            "light"
                         ]
                     },
                     "fonts": {
@@ -616,31 +660,43 @@
                                     "family",
                                     "stylesheet_url"
                                 ]
-                            },
-                            "mono": {
-                                "type": "object",
-                                "properties": {
-                                    "family": {
-                                        "type": "string"
-                                    },
-                                    "stylesheet_url": {
-                                        "type": "string"
-                                    }
-                                },
-                                "required": [
-                                    "family",
-                                    "stylesheet_url"
-                                ]
                             }
                         },
                         "required": [
                             "heading",
-                            "body",
-                            "mono"
+                            "body"
                         ]
                     },
                     "radius": {
                         "type": "string"
+                    },
+                    "opening": {
+                        "type": "object",
+                        "properties": {
+                            "video_webm": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "video_mp4": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            },
+                            "poster": {
+                                "type": [
+                                    "string",
+                                    "null"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "video_webm",
+                            "video_mp4",
+                            "poster"
+                        ]
                     }
                 },
                 "required": [
@@ -651,7 +707,8 @@
                     "logos",
                     "colors",
                     "fonts",
-                    "radius"
+                    "radius",
+                    "opening"
                 ],
                 "title": "BrandingResource"
             },
@@ -758,12 +815,19 @@
                     },
                     "available_units": {
                         "type": "integer"
+                    },
+                    "price_from": {
+                        "type": [
+                            "number",
+                            "null"
+                        ]
                     }
                 },
                 "required": [
                     "slug",
                     "name",
-                    "available_units"
+                    "available_units",
+                    "price_from"
                 ],
                 "title": "CategoryResource"
             },

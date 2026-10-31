@@ -20,6 +20,9 @@ final class ListCategories
             ->withCount(['units as available_units_count' => function (Builder $query): void {
                 $query->where('status', UnitStatus::Available);
             }])
+            ->withMin(['units as price_from_cents' => function (Builder $query): void {
+                $query->where('status', UnitStatus::Available);
+            }], 'price_pix_cents')
             ->orderBy('position')
             ->get();
     }

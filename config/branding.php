@@ -24,12 +24,28 @@ return [
 
     'currency' => 'BRL',
 
-    'colors' => [
-        'background' => '#111111',
-        'surface' => '#1a1a1a',
-        'foreground' => '#f5f5f5',
-        'muted' => '#8a8a8a',
-        'signal' => '#bdbdbd',
+    /*
+    | Two palettes with the same roles: the web emits both and picks one by
+    | the visitor's theme (cookie) or the system preference. Dark takes the
+    | charcoal of the logo; light takes the stone of the photo bench.
+    */
+
+    'colors_dark' => [
+        'background' => '#161615',
+        'surface' => '#22211f',
+        'foreground' => '#ecebe7',
+        'muted' => '#a7a49d',
+        'accent' => '#dcd8cf',
+        'accent_foreground' => '#161615',
+    ],
+
+    'colors_light' => [
+        'background' => '#e4e1da',
+        'surface' => '#d6d2c9',
+        'foreground' => '#161615',
+        'muted' => '#56534d',
+        'accent' => '#161615',
+        'accent_foreground' => '#ecebe7',
     ],
 
     /*
@@ -38,12 +54,11 @@ return [
     */
 
     'fonts' => [
-        'heading' => ['family' => 'Archivo', 'stylesheet' => 'archivo/archivo.css'],
-        'body' => ['family' => 'Archivo', 'stylesheet' => 'archivo/archivo.css'],
-        'mono' => ['family' => 'IBM Plex Mono', 'stylesheet' => 'ibm-plex-mono/ibm-plex-mono.css'],
+        'heading' => ['family' => 'Epilogue', 'stylesheet' => 'epilogue/epilogue.css'],
+        'body' => ['family' => 'Epilogue', 'stylesheet' => 'epilogue/epilogue.css'],
     ],
 
-    'radius' => '4px',
+    'radius' => '0px',
 
     /*
     | Cache lifetime (in seconds) sent with every font file.

@@ -22,11 +22,19 @@ final class BrandingSettings extends Settings
 
     public ?string $logo_on_light_path;
 
-    public BrandColorsData $colors;
+    public BrandColorsData $colors_dark;
+
+    public BrandColorsData $colors_light;
 
     public BrandFontsData $fonts;
 
     public string $radius;
+
+    public ?string $opening_video_webm_path;
+
+    public ?string $opening_video_mp4_path;
+
+    public ?string $opening_poster_path;
 
     public static function group(): string
     {

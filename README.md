@@ -16,6 +16,16 @@ docker run --rm -u "$(id -u):$(id -g)" -v "$PWD:/app" -w /app composer:2 compose
 ./vendor/bin/sail artisan db:seed
 ```
 
+## Catálogo de exemplo
+
+O seeder cria seis categorias e unidades de exemplo a partir das fotos e vídeos originais em
+`CATALOG_MEDIA_HOST_PATH` (montados só leitura no container). Os derivados (WebP, loops de vídeo e
+posters) vão para `storage/app/public/catalog`. Para regerar a mídia:
+
+```sh
+./vendor/bin/sail artisan catalog:media
+```
+
 A API responde em `APP_URL` (padrão `http://localhost:8000`). Healthcheck em `/up`.
 
 ## Contrato OpenAPI
