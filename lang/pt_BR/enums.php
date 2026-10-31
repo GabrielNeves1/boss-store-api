@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 return [
     'unit_condition' => [
+        'sealed' => 'Lacrado',
         'like_new' => 'Como novo',
         'excellent' => 'Excelente',
         'good' => 'Bom',

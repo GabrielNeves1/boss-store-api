@@ -11,6 +11,8 @@ enum UnitCondition: string implements HasLabel
 {
     use HasTranslatedLabel;
 
+    /** Lacrado de fábrica, nunca ativado: não há laudo de uso, só a caixa intacta. */
+    case Sealed = 'sealed';
     case LikeNew = 'like_new';
     case Excellent = 'excellent';
     case Good = 'good';

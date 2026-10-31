@@ -31,3 +31,14 @@ it('describes only the filter options that exist in the category', function (): 
 it('returns 404 for an unknown category', function (): void {
     $this->getJson(route('catalog.categories.show', 'nope'))->assertNotFound();
 });
+
+it('lists sealed units first among the conditions', function (): void {
+    $category = Category::factory()->create(['slug' => 'phones']);
+
+    Unit::factory()->for($category)->create(['condition' => UnitCondition::Good]);
+    Unit::factory()->for($category)->create(['condition' => UnitCondition::Sealed, 'battery_health' => null]);
+
+    $this->getJson(route('catalog.categories.show', 'phones'))
+        ->assertJsonPath('data.filters.conditions.0', ['value' => 'sealed', 'label' => 'Lacrado'])
+        ->assertJsonPath('data.filters.conditions.1.value', 'good');
+});
