@@ -15,3 +15,11 @@ it('lists featured units that are not sold', function (): void {
         ->assertJsonPath('data.*.code', [$featured->code])
         ->assertJsonPath('data.0.media', []);
 });
+
+it('lists the most valuable featured unit first', function (): void {
+    $cheap = Unit::factory()->featured()->create(['price_pix_cents' => 100_000]);
+    $premium = Unit::factory()->featured()->create(['price_pix_cents' => 600_000]);
+
+    $this->getJson(route('catalog.units.featured'))
+        ->assertJsonPath('data.*.code', [$premium->code, $cheap->code]);
+});

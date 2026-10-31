@@ -11,6 +11,8 @@ use Illuminate\Database\Eloquent\Collection;
 final class ListFeaturedUnits
 {
     /**
+     * Destaques do mais valioso para o mais acessível: o primeiro abre a vitrine.
+     *
      * @return Collection<int, Unit>
      */
     public function handle(): Collection
@@ -19,7 +21,7 @@ final class ListFeaturedUnits
             ->with(['category', 'media'])
             ->where('featured', true)
             ->where('status', '!=', UnitStatus::Sold)
-            ->orderByDesc('id')
+            ->orderByDesc('price_pix_cents')
             ->get();
     }
 }
