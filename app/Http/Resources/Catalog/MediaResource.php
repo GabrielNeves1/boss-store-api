@@ -39,10 +39,12 @@ final class MediaResource extends JsonResource
             'alt' => $this->media->alt,
             'width' => $this->media->width,
             'height' => $this->media->height,
+            /** @var list<array{width: int, url: string}> */
             'variants' => array_map(
                 fn (array $variant): array => ['width' => $variant['width'], 'url' => $disk->url($variant['path'])],
                 $this->media->variants,
             ),
+            /** @var list<array{type: string, url: string}> */
             'sources' => array_map(
                 fn (array $source): array => ['type' => $source['type'], 'url' => $disk->url($source['path'])],
                 $this->media->sources ?? [],

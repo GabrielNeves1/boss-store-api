@@ -888,11 +888,39 @@
                     },
                     "variants": {
                         "type": "array",
-                        "items": {}
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "width": {
+                                    "type": "integer"
+                                },
+                                "url": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "width",
+                                "url"
+                            ]
+                        }
                     },
                     "sources": {
                         "type": "array",
-                        "items": {}
+                        "items": {
+                            "type": "object",
+                            "properties": {
+                                "type": {
+                                    "type": "string"
+                                },
+                                "url": {
+                                    "type": "string"
+                                }
+                            },
+                            "required": [
+                                "type",
+                                "url"
+                            ]
+                        }
                     }
                 },
                 "required": [
