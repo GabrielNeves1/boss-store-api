@@ -125,6 +125,395 @@
                     }
                 }
             }
+        },
+        "/catalog/categories": {
+            "get": {
+                "operationId": "catalog.categories.index",
+                "tags": [
+                    "ListCategories"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Array of `CategoryResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/CategoryResource"
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/catalog/units/featured": {
+            "get": {
+                "operationId": "catalog.units.featured",
+                "tags": [
+                    "ListFeaturedUnits"
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Array of `UnitSummaryResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/UnitSummaryResource"
+                                            }
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "/catalog/units": {
+            "get": {
+                "operationId": "catalog.units.index",
+                "tags": [
+                    "ListUnits"
+                ],
+                "parameters": [
+                    {
+                        "name": "category",
+                        "in": "query",
+                        "schema": {
+                            "type": "string"
+                        }
+                    },
+                    {
+                        "name": "storage[]",
+                        "in": "query",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "integer",
+                                "minimum": 1
+                            }
+                        }
+                    },
+                    {
+                        "name": "color[]",
+                        "in": "query",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "type": "string",
+                                "maxLength": 100
+                            }
+                        }
+                    },
+                    {
+                        "name": "condition[]",
+                        "in": "query",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/UnitCondition"
+                            }
+                        }
+                    },
+                    {
+                        "name": "status[]",
+                        "in": "query",
+                        "schema": {
+                            "type": "array",
+                            "items": {
+                                "$ref": "#/components/schemas/UnitStatus"
+                            }
+                        }
+                    },
+                    {
+                        "name": "battery_min",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 0,
+                            "maximum": 100
+                        }
+                    },
+                    {
+                        "name": "price_min",
+                        "in": "query",
+                        "schema": {
+                            "type": "number",
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "price_max",
+                        "in": "query",
+                        "schema": {
+                            "type": "number",
+                            "minimum": 0
+                        }
+                    },
+                    {
+                        "name": "sort",
+                        "in": "query",
+                        "schema": {
+                            "$ref": "#/components/schemas/UnitSort"
+                        }
+                    },
+                    {
+                        "name": "page",
+                        "in": "query",
+                        "schema": {
+                            "type": "integer",
+                            "minimum": 1
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Paginated set of `UnitSummaryResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "type": "array",
+                                            "items": {
+                                                "$ref": "#/components/schemas/UnitSummaryResource"
+                                            }
+                                        },
+                                        "links": {
+                                            "type": "object",
+                                            "properties": {
+                                                "first": {
+                                                    "type": [
+                                                        "string",
+                                                        "null"
+                                                    ]
+                                                },
+                                                "last": {
+                                                    "type": [
+                                                        "string",
+                                                        "null"
+                                                    ]
+                                                },
+                                                "prev": {
+                                                    "type": [
+                                                        "string",
+                                                        "null"
+                                                    ]
+                                                },
+                                                "next": {
+                                                    "type": [
+                                                        "string",
+                                                        "null"
+                                                    ]
+                                                }
+                                            },
+                                            "required": [
+                                                "first",
+                                                "last",
+                                                "prev",
+                                                "next"
+                                            ]
+                                        },
+                                        "meta": {
+                                            "type": "object",
+                                            "properties": {
+                                                "current_page": {
+                                                    "type": "integer",
+                                                    "minimum": 1
+                                                },
+                                                "from": {
+                                                    "type": [
+                                                        "integer",
+                                                        "null"
+                                                    ],
+                                                    "minimum": 1
+                                                },
+                                                "last_page": {
+                                                    "type": "integer",
+                                                    "minimum": 1
+                                                },
+                                                "links": {
+                                                    "type": "array",
+                                                    "description": "Generated paginator links.",
+                                                    "items": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "url": {
+                                                                "type": [
+                                                                    "string",
+                                                                    "null"
+                                                                ]
+                                                            },
+                                                            "label": {
+                                                                "type": "string"
+                                                            },
+                                                            "active": {
+                                                                "type": "boolean"
+                                                            }
+                                                        },
+                                                        "required": [
+                                                            "url",
+                                                            "label",
+                                                            "active"
+                                                        ]
+                                                    }
+                                                },
+                                                "path": {
+                                                    "type": [
+                                                        "string",
+                                                        "null"
+                                                    ],
+                                                    "description": "Base path for paginator generated URLs."
+                                                },
+                                                "per_page": {
+                                                    "type": "integer",
+                                                    "description": "Number of items shown per page.",
+                                                    "minimum": 0
+                                                },
+                                                "to": {
+                                                    "type": [
+                                                        "integer",
+                                                        "null"
+                                                    ],
+                                                    "description": "Number of the last item in the slice.",
+                                                    "minimum": 1
+                                                },
+                                                "total": {
+                                                    "type": "integer",
+                                                    "description": "Total number of items being paginated.",
+                                                    "minimum": 0
+                                                }
+                                            },
+                                            "required": [
+                                                "current_page",
+                                                "from",
+                                                "last_page",
+                                                "links",
+                                                "path",
+                                                "per_page",
+                                                "to",
+                                                "total"
+                                            ]
+                                        }
+                                    },
+                                    "required": [
+                                        "data",
+                                        "links",
+                                        "meta"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "422": {
+                        "$ref": "#/components/responses/ValidationException"
+                    }
+                }
+            }
+        },
+        "/catalog/categories/{category}": {
+            "get": {
+                "operationId": "catalog.categories.show",
+                "tags": [
+                    "ShowCategory"
+                ],
+                "parameters": [
+                    {
+                        "name": "category",
+                        "in": "path",
+                        "required": true,
+                        "description": "The category slug",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "`CategoryFiltersResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/CategoryFiltersResource"
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            }
+        },
+        "/catalog/units/{unit}": {
+            "get": {
+                "operationId": "catalog.units.show",
+                "tags": [
+                    "ShowUnit"
+                ],
+                "parameters": [
+                    {
+                        "name": "unit",
+                        "in": "path",
+                        "required": true,
+                        "description": "The unit code",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "`UnitResource`",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "data": {
+                                            "$ref": "#/components/schemas/UnitResource"
+                                        }
+                                    },
+                                    "required": [
+                                        "data"
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "$ref": "#/components/responses/ModelNotFoundException"
+                    }
+                }
+            }
         }
     },
     "components": {
@@ -266,6 +655,134 @@
                 ],
                 "title": "BrandingResource"
             },
+            "CategoryFiltersResource": {
+                "type": "object",
+                "properties": {
+                    "slug": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "unit_count": {
+                        "type": "integer",
+                        "minimum": 0
+                    },
+                    "filters": {
+                        "type": "object",
+                        "properties": {
+                            "storages": {
+                                "type": "array",
+                                "items": {
+                                    "type": "integer"
+                                }
+                            },
+                            "colors": {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            },
+                            "conditions": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/EnumResource"
+                                }
+                            },
+                            "statuses": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/EnumResource"
+                                }
+                            },
+                            "sorts": {
+                                "type": "array",
+                                "items": {
+                                    "$ref": "#/components/schemas/EnumResource"
+                                }
+                            },
+                            "price_min": {
+                                "type": [
+                                    "number",
+                                    "null"
+                                ]
+                            },
+                            "price_max": {
+                                "type": [
+                                    "number",
+                                    "null"
+                                ]
+                            },
+                            "battery_min": {
+                                "type": [
+                                    "integer",
+                                    "null"
+                                ]
+                            },
+                            "battery_max": {
+                                "type": [
+                                    "integer",
+                                    "null"
+                                ]
+                            }
+                        },
+                        "required": [
+                            "storages",
+                            "colors",
+                            "conditions",
+                            "statuses",
+                            "sorts",
+                            "price_min",
+                            "price_max",
+                            "battery_min",
+                            "battery_max"
+                        ]
+                    }
+                },
+                "required": [
+                    "slug",
+                    "name",
+                    "unit_count",
+                    "filters"
+                ],
+                "title": "CategoryFiltersResource"
+            },
+            "CategoryResource": {
+                "type": "object",
+                "properties": {
+                    "slug": {
+                        "type": "string"
+                    },
+                    "name": {
+                        "type": "string"
+                    },
+                    "available_units": {
+                        "type": "integer"
+                    }
+                },
+                "required": [
+                    "slug",
+                    "name",
+                    "available_units"
+                ],
+                "title": "CategoryResource"
+            },
+            "EnumResource": {
+                "type": "object",
+                "properties": {
+                    "value": {
+                        "type": "string"
+                    },
+                    "label": {
+                        "type": "string"
+                    }
+                },
+                "required": [
+                    "value",
+                    "label"
+                ],
+                "title": "EnumResource"
+            },
             "LoginRequest": {
                 "type": "object",
                 "properties": {
@@ -285,6 +802,260 @@
                     "password"
                 ],
                 "title": "LoginRequest"
+            },
+            "MediaResource": {
+                "type": "object",
+                "properties": {
+                    "type": {
+                        "type": "string",
+                        "enum": [
+                            "photo",
+                            "video"
+                        ]
+                    },
+                    "alt": {
+                        "type": "string"
+                    },
+                    "width": {
+                        "type": "integer"
+                    },
+                    "height": {
+                        "type": "integer"
+                    },
+                    "variants": {
+                        "type": "array",
+                        "items": {}
+                    },
+                    "sources": {
+                        "type": "array",
+                        "items": {}
+                    }
+                },
+                "required": [
+                    "type",
+                    "alt",
+                    "width",
+                    "height",
+                    "variants",
+                    "sources"
+                ],
+                "title": "MediaResource"
+            },
+            "PriceResource": {
+                "type": "object",
+                "properties": {
+                    "pix": {
+                        "type": "number"
+                    },
+                    "card": {
+                        "type": "number"
+                    },
+                    "installments": {
+                        "type": "object",
+                        "properties": {
+                            "count": {
+                                "type": "integer"
+                            },
+                            "amount": {
+                                "type": "number"
+                            }
+                        },
+                        "required": [
+                            "count",
+                            "amount"
+                        ]
+                    }
+                },
+                "required": [
+                    "pix",
+                    "card",
+                    "installments"
+                ],
+                "title": "PriceResource"
+            },
+            "UnitCondition": {
+                "type": "string",
+                "enum": [
+                    "like_new",
+                    "excellent",
+                    "good"
+                ],
+                "title": "UnitCondition"
+            },
+            "UnitResource": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "string"
+                    },
+                    "model": {
+                        "type": "string"
+                    },
+                    "color": {
+                        "type": "string"
+                    },
+                    "storage_gb": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ]
+                    },
+                    "battery_health": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ]
+                    },
+                    "condition": {
+                        "$ref": "#/components/schemas/EnumResource"
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/EnumResource"
+                    },
+                    "warranty_months": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ]
+                    },
+                    "accessories": {
+                        "type": "array",
+                        "items": {
+                            "type": "string"
+                        }
+                    },
+                    "category": {
+                        "type": "object",
+                        "properties": {
+                            "slug": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "slug",
+                            "name"
+                        ]
+                    },
+                    "price": {
+                        "$ref": "#/components/schemas/PriceResource"
+                    },
+                    "media": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MediaResource"
+                        }
+                    }
+                },
+                "required": [
+                    "code",
+                    "model",
+                    "color",
+                    "storage_gb",
+                    "battery_health",
+                    "condition",
+                    "status",
+                    "warranty_months",
+                    "accessories",
+                    "category",
+                    "price",
+                    "media"
+                ],
+                "title": "UnitResource"
+            },
+            "UnitSort": {
+                "type": "string",
+                "enum": [
+                    "relevance",
+                    "price_asc",
+                    "price_desc",
+                    "battery_desc"
+                ],
+                "title": "UnitSort"
+            },
+            "UnitStatus": {
+                "type": "string",
+                "enum": [
+                    "available",
+                    "reserved",
+                    "sold"
+                ],
+                "title": "UnitStatus"
+            },
+            "UnitSummaryResource": {
+                "type": "object",
+                "properties": {
+                    "code": {
+                        "type": "string"
+                    },
+                    "model": {
+                        "type": "string"
+                    },
+                    "color": {
+                        "type": "string"
+                    },
+                    "storage_gb": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ]
+                    },
+                    "battery_health": {
+                        "type": [
+                            "integer",
+                            "null"
+                        ]
+                    },
+                    "condition": {
+                        "$ref": "#/components/schemas/EnumResource"
+                    },
+                    "status": {
+                        "$ref": "#/components/schemas/EnumResource"
+                    },
+                    "category": {
+                        "type": "object",
+                        "properties": {
+                            "slug": {
+                                "type": "string"
+                            },
+                            "name": {
+                                "type": "string"
+                            }
+                        },
+                        "required": [
+                            "slug",
+                            "name"
+                        ]
+                    },
+                    "price": {
+                        "$ref": "#/components/schemas/PriceResource"
+                    },
+                    "cover": {
+                        "anyOf": [
+                            {
+                                "$ref": "#/components/schemas/MediaResource"
+                            },
+                            {
+                                "type": "null"
+                            }
+                        ]
+                    }
+                },
+                "required": [
+                    "code",
+                    "model",
+                    "color",
+                    "storage_gb",
+                    "battery_health",
+                    "condition",
+                    "status",
+                    "category",
+                    "price",
+                    "cover"
+                ],
+                "title": "UnitSummaryResource"
             },
             "UserResource": {
                 "type": "object",
@@ -308,6 +1079,25 @@
             }
         },
         "responses": {
+            "ModelNotFoundException": {
+                "description": "Not found",
+                "content": {
+                    "application/json": {
+                        "schema": {
+                            "type": "object",
+                            "properties": {
+                                "message": {
+                                    "type": "string",
+                                    "description": "Error overview."
+                                }
+                            },
+                            "required": [
+                                "message"
+                            ]
+                        }
+                    }
+                }
+            },
             "ValidationException": {
                 "description": "Validation error",
                 "content": {

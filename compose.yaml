@@ -19,6 +19,7 @@ services:
         volumes:
             - '.:/var/www/html'
             - '${SEED_ASSETS_HOST_PATH:-./storage/app/seed-assets}:/var/www/seed-assets:ro'
+            - '${CATALOG_MEDIA_HOST_PATH:-./storage/app/catalog-originals}:/var/www/catalog-originals:ro'
         networks:
             - sail
         depends_on:
