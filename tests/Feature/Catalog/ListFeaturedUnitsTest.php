@@ -12,5 +12,6 @@ it('lists featured units that are not sold', function (): void {
 
     $this->getJson(route('catalog.units.featured'))
         ->assertOk()
-        ->assertJsonPath('data.*.code', [$featured->code]);
+        ->assertJsonPath('data.*.code', [$featured->code])
+        ->assertJsonPath('data.0.media', []);
 });

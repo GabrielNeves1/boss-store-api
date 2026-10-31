@@ -43,6 +43,8 @@ final class UnitSummaryResource extends JsonResource
             'price' => new PriceResource($this->unit),
             /** @var MediaResource|null */
             'cover' => $cover === null ? null : new MediaResource($cover),
+            /** @var list<MediaResource> */
+            'media' => $this->unit->media->map(fn (UnitMedia $media): MediaResource => new MediaResource($media))->values()->all(),
         ];
     }
 }

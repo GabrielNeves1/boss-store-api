@@ -1105,6 +1105,12 @@
                                 "type": "null"
                             }
                         ]
+                    },
+                    "media": {
+                        "type": "array",
+                        "items": {
+                            "$ref": "#/components/schemas/MediaResource"
+                        }
                     }
                 },
                 "required": [
@@ -1117,7 +1123,8 @@
                     "status",
                     "category",
                     "price",
-                    "cover"
+                    "cover",
+                    "media"
                 ],
                 "title": "UnitSummaryResource"
             },
