@@ -29,6 +29,9 @@ use InvalidArgumentException;
  */
 final class ProcessUnitMedia
 {
+    /** Quadro-chave frequente para o vídeo responder bem quando o front controla o tempo pelo scroll ou arraste. */
+    private const int KEYFRAME_INTERVAL = 6;
+
     public function __construct(
         private readonly RenderPhotoVariants $renderPhotoVariants,
         private readonly RunFfmpeg $runFfmpeg,
@@ -99,8 +102,8 @@ final class ProcessUnitMedia
         $sources = [];
 
         try {
-            $this->runFfmpeg->handle(['-i', $source, '-an', '-vf', $scale, '-c:v', 'libvpx-vp9', '-crf', '36', '-b:v', '0', '-row-mt', '1', $temporary.'.webm']);
-            $this->runFfmpeg->handle(['-i', $source, '-an', '-vf', $scale, '-c:v', 'libx264', '-crf', '26', '-preset', 'slow', '-pix_fmt', 'yuv420p', '-movflags', '+faststart', $temporary.'.mp4']);
+            $this->runFfmpeg->handle(['-i', $source, '-an', '-vf', $scale, '-c:v', 'libvpx-vp9', '-crf', '36', '-b:v', '0', '-row-mt', '1', '-g', (string) self::KEYFRAME_INTERVAL, $temporary.'.webm']);
+            $this->runFfmpeg->handle(['-i', $source, '-an', '-vf', $scale, '-c:v', 'libx264', '-crf', '26', '-preset', 'slow', '-g', (string) self::KEYFRAME_INTERVAL, '-pix_fmt', 'yuv420p', '-movflags', '+faststart', $temporary.'.mp4']);
 
             foreach (['webm' => 'video/webm', 'mp4' => 'video/mp4'] as $extension => $type) {
                 $path = sprintf('%s/%s.%s', $directory, $name, $extension);
